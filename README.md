@@ -15,12 +15,18 @@ Read more in our cliffnotes at [Services](https://github.com/thecodepath/android
 
 ## Use Cases
 
+**Simple IntentService**
+
 * Use case #1: Demo a simple intent service, sleep, then toast using ResultReceiver
 * Use case #2: Demo a simple intent service, sleep, then display in Notification Center (first builder example)
 * Use case #3: Upon clicking on a notification, go to a particular activity and display the notification information
 
+**ImageDownloadService**
+
 * Use case #4: Demo a long download with a 10 second sleep.  Close the app, display in Notification Center when done.
 * Use case #5: Show the downloaded image in the expansion view within notification.
+
+**AlarmManager for Simple IntentServcie**
 
 * Use case #6: An AlarmManager fires a message that will be displayed in Notification Center
 * Use case #7: Demonstrated “stacked notifications” in a repeating alarm that updates the existing notification.
