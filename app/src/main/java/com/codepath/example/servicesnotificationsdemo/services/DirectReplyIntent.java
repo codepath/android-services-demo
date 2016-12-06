@@ -1,4 +1,4 @@
-package com.codepath.example.servicesnotificationsdemo.activities;
+package com.codepath.example.servicesnotificationsdemo.services;
 
 import com.codepath.example.servicesnotificationsdemo.R;
 
@@ -12,13 +12,11 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
-import android.widget.Toast;
-
-import static com.codepath.example.servicesnotificationsdemo.services.ImageDownloadService.NOTIF_ID;
 
 public class DirectReplyIntent extends IntentService {
 
     public static String KEY_TEXT_REPLY = "key_text_reply";
+    public static String KEY_NOTIFY_ID = "key_notify_id";
 
     public DirectReplyIntent() {
         super("DirectReplyIntent");
@@ -28,7 +26,6 @@ public class DirectReplyIntent extends IntentService {
     protected void onHandleIntent(Intent intent) {
         CharSequence directReply = getMessageText(intent);
         if (directReply != null) {
-            Toast.makeText(this, directReply, Toast.LENGTH_LONG).show();
             Notification repliedNotification =
                     new NotificationCompat.Builder(DirectReplyIntent.this)
                             .setSmallIcon(R.drawable.ic_launcher)
@@ -38,7 +35,8 @@ public class DirectReplyIntent extends IntentService {
             NotificationManager notificationManager = (NotificationManager) getSystemService(
                     Context.NOTIFICATION_SERVICE);
 
-            notificationManager.notify(NOTIF_ID, repliedNotification);
+            int notifyId = intent.getIntExtra(KEY_NOTIFY_ID, -1);
+            notificationManager.notify(notifyId, repliedNotification);
         }
     }
 

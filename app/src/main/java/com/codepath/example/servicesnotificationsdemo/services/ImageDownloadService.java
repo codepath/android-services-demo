@@ -1,7 +1,6 @@
 package com.codepath.example.servicesnotificationsdemo.services;
 
 import com.codepath.example.servicesnotificationsdemo.R;
-import com.codepath.example.servicesnotificationsdemo.activities.DirectReplyIntent;
 import com.codepath.example.servicesnotificationsdemo.activities.ImagePreviewActivity;
 
 import android.app.IntentService;
@@ -22,7 +21,8 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import static android.app.PendingIntent.FLAG_CANCEL_CURRENT;
-import static com.codepath.example.servicesnotificationsdemo.activities.DirectReplyIntent.KEY_TEXT_REPLY;
+import static com.codepath.example.servicesnotificationsdemo.services.DirectReplyIntent.KEY_NOTIFY_ID;
+import static com.codepath.example.servicesnotificationsdemo.services.DirectReplyIntent.KEY_TEXT_REPLY;
 
 public class ImageDownloadService extends IntentService {
 
@@ -82,6 +82,8 @@ public class ImageDownloadService extends IntentService {
         if (android.os.Build.VERSION.SDK_INT >= 24) {
 
             Intent directReplyIntent = new Intent(this, DirectReplyIntent.class);
+            directReplyIntent.putExtra(KEY_NOTIFY_ID, NOTIF_ID);
+
             int flags = FLAG_CANCEL_CURRENT;
             PendingIntent directReplyPendingIntent =
                     PendingIntent.getService(this, 0, directReplyIntent, flags);
