@@ -41,7 +41,7 @@
             android:process=":remote"></receiver>
 
         <service
-            android:name=".activities.DirectReplyIntent"></service>
+            android:name=".services.DirectReplyIntent"></service>
     </application>
 
 </manifest>
