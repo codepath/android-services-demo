@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.3"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
 
     defaultConfig {
         applicationId "com.codepath.example.servicesnotificationsdemo"
-        minSdkVersion 10
-        targetSdkVersion 24
+        minSdkVersion 14
+        targetSdkVersion 26
     }
 
     buildTypes {
@@ -19,5 +19,5 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:support-v4:26.0.1'
 }
