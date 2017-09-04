@@ -1,5 +1,6 @@
 package com.codepath.example.servicesnotificationsdemo.services;
 
+import com.codepath.example.servicesnotificationsdemo.DemoApplication;
 import com.codepath.example.servicesnotificationsdemo.R;
 
 import android.annotation.TargetApi;
@@ -27,7 +28,7 @@ public class DirectReplyIntent extends IntentService {
         CharSequence directReply = getMessageText(intent);
         if (directReply != null) {
             Notification repliedNotification =
-                    new NotificationCompat.Builder(DirectReplyIntent.this)
+                    new NotificationCompat.Builder(DirectReplyIntent.this, DemoApplication.CHANNEL_ID)
                             .setSmallIcon(R.drawable.ic_launcher)
                             .setContentText("Received: " + directReply)
                             .build();
