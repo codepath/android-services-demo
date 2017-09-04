@@ -1,5 +1,6 @@
 package com.codepath.example.servicesnotificationsdemo.services;
 
+import com.codepath.example.servicesnotificationsdemo.DemoApplication;
 import com.codepath.example.servicesnotificationsdemo.R;
 import com.codepath.example.servicesnotificationsdemo.activities.ImagePreviewActivity;
 
@@ -70,7 +71,7 @@ public class ImageDownloadService extends IntentService {
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         // Create notification
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, DemoApplication.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setContentTitle("Image Download Complete!")
                 .setContentText(

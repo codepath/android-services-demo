@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.support.v4.app.NotificationCompat;
 
+import com.codepath.example.servicesnotificationsdemo.DemoApplication;
 import com.codepath.example.servicesnotificationsdemo.R;
 import com.codepath.example.servicesnotificationsdemo.activities.MainActivity;
 
@@ -57,7 +58,7 @@ public class MySimpleService extends IntentService {
 		// Create notification
 		String longText = "Intent service has a new message with: " + val + " and a timestamp of: " + timestamp;
 		Notification noti =
-		        new NotificationCompat.Builder(this)
+		        new NotificationCompat.Builder(this, DemoApplication.CHANNEL_ID)
 		        .setSmallIcon(R.drawable.ic_launcher)
 		        .setContentTitle("New Result!")
 		        .setContentText("Simple Intent service has a new message")
