@@ -12,6 +12,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
+import android.support.v4.app.JobIntentService;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.RemoteInput;
 
@@ -25,20 +27,23 @@ import static android.app.PendingIntent.FLAG_CANCEL_CURRENT;
 import static com.codepath.example.servicesnotificationsdemo.services.DirectReplyIntent.KEY_NOTIFY_ID;
 import static com.codepath.example.servicesnotificationsdemo.services.DirectReplyIntent.KEY_TEXT_REPLY;
 
-public class ImageDownloadService extends IntentService {
+public class ImageDownloadService extends JobIntentService {
+    public static final int JOB_ID = 101;
 
     public static final int NOTIF_ID = 82;
 
-    long timestamp;
+    public static void enqueueWork(Context context, Intent work) {
+        enqueueWork(context, ImageDownloadService.class, JOB_ID, work);
+    }
 
     // Must create a default constructor
     public ImageDownloadService() {
-        super("image-service");
+        super();
     }
 
     // Download the image and create notification
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleWork(@NonNull Intent intent) {
         // Extract additional values from the bundle
         String imageUrl = intent.getStringExtra("url");
         // Download image

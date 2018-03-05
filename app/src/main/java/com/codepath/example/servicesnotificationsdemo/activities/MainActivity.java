@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 		i.putExtra("foo", "bar");
 		i.putExtra("receiver", receiverForSimple);
 		// Start the service
-		startService(i); 
+		MySimpleService.enqueueWork(this, i);
 	}
 	
 	public void onImageDownloadService(View v) {
@@ -52,7 +52,7 @@ public class MainActivity extends Activity {
 		// Add extras to bundle
 		i.putExtra("url", "http://www.zastavki.com/pictures/1920x1200/2010/World_Australia_River_in_Australia_022164_.jpg");
 		// Start the service
-		startService(i);
+		ImageDownloadService.enqueueWork(this, i);
 	}
 	
 	public void onStartAlarm(View v) {
