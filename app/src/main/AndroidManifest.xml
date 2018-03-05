@@ -40,8 +40,7 @@
             android:exported="true" />
 
         <receiver
-            android:name=".receivers.MyAlarmReceiver"
-            android:process=":remote"></receiver>
+            android:name=".receivers.MyAlarmReceiver"></receiver>
 
         <service
             android:name=".services.DirectReplyIntent"></service>
