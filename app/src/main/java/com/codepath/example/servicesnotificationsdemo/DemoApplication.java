@@ -4,6 +4,7 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.os.Build;
 
 public class DemoApplication extends Application {
 
@@ -14,11 +15,12 @@ public class DemoApplication extends Application {
         super.onCreate();
 
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "My Channel", importance);
 
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(
-                Context.NOTIFICATION_SERVICE);
-
-        mNotificationManager.createNotificationChannel(channel);
+        if (Build.VERSION.SDK_INT >= 26) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "My Channel", importance);
+            NotificationManager mNotificationManager = (NotificationManager) getSystemService(
+                    Context.NOTIFICATION_SERVICE);
+            mNotificationManager.createNotificationChannel(channel);
+        }
     }
 }
