@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.ResultReceiver;
+import android.util.Log;
 
 import com.codepath.example.servicesnotificationsdemo.services.MySimpleService;
 
@@ -14,10 +15,11 @@ public class MyAlarmReceiver extends BroadcastReceiver {
 	// Triggered by the Alarm periodically (starts the service to run task)
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		Log.d("DEBUG", "MyAlarmReceiver triggered");
+
 		Intent i = new Intent(context, MySimpleService.class);
-		ResultReceiver receiver = intent.getParcelableExtra("receiver");
 		i.putExtra("foo", "alarm!!");
-		i.putExtra("receiver", receiver); 
-		context.startService(i); 
+		i.putExtra("receiver", MySimpleReceiver.setupServiceReceiver(context));
+		MySimpleService.enqueueWork(context, i);
 	}
 }

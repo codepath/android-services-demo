@@ -25,7 +25,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		setupServiceReceiver();
 		checkForMessage();
 	}
 
@@ -41,7 +40,7 @@ public class MainActivity extends Activity {
 		Intent i = new Intent(this, MySimpleService.class);
 		// Add extras to the bundle
 		i.putExtra("foo", "bar");
-		i.putExtra("receiver", receiverForSimple);
+		i.putExtra("receiver", MySimpleReceiver.setupServiceReceiver(MainActivity.this));
 		// Start the service
 		MySimpleService.enqueueWork(this, i);
 	}
@@ -58,15 +57,15 @@ public class MainActivity extends Activity {
 	public void onStartAlarm(View v) {
 		// Construct an intent that will execute the AlarmReceiver
 	    Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-	    intent.putExtra("receiver", receiverForSimple);
 	    // Create a PendingIntent to be triggered when the alarm goes off
 	    alarmPendingIntent = PendingIntent.getBroadcast(this, MyAlarmReceiver.REQUEST_CODE,
 	        intent, PendingIntent.FLAG_UPDATE_CURRENT);
 	    // Setup periodic alarm every 5 seconds
 	    long firstMillis = System.currentTimeMillis(); // first run of alarm is immediate
-	    int intervalMillis = 5000; // 5 seconds
+	    int intervalMillis = 60000; // as of API 19, alarm manager will be forced up to 60000 to save battery
 	    AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-	    alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis, intervalMillis, alarmPendingIntent);
+	    // See https://developer.android.com/training/scheduling/alarms.html
+		alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis, intervalMillis, alarmPendingIntent);
 	}
 	
 	public void onStopAlarm(View v) {
@@ -74,22 +73,6 @@ public class MainActivity extends Activity {
 		if (alarmPendingIntent != null) {
 		  alarm.cancel(alarmPendingIntent);
 		}
-	}
-
-	// Setup the callback for when data is received from the service
-	public void setupServiceReceiver() {
-		receiverForSimple = new MySimpleReceiver(new Handler());
-		// This is where we specify what happens when data is received from the
-		// service
-		receiverForSimple.setReceiver(new MySimpleReceiver.Receiver() {
-			@Override
-			public void onReceiveResult(int resultCode, Bundle resultData) {
-				if (resultCode == RESULT_OK) {
-					String resultValue = resultData.getString("resultValue");
-					Toast.makeText(MainActivity.this, resultValue, Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
 	}
 	
 	// Checks to see if service passed in a message
