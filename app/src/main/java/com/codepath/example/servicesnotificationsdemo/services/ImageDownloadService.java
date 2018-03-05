@@ -151,14 +151,4 @@ public class ImageDownloadService extends JobIntentService {
         }
         return bitmap;
     }
-
-    private void sleep(long millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
 }
