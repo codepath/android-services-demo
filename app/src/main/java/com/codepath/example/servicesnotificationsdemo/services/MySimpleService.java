@@ -36,10 +36,7 @@ public class MySimpleService extends JobIntentService {
 	    String val = intent.getStringExtra("foo");
 		// Extract the receiver passed into the service
 	    ResultReceiver rec = intent.getParcelableExtra("receiver");
-
-	    // Sleep a bit first
-	    sleep(3000);
-	    // Send result to activity
+		// Send result to activity
 	    sendResultValue(rec, val);
 		// Let's also create notification
 	    createNotification(val);
@@ -78,14 +75,5 @@ public class MySimpleService extends JobIntentService {
 			    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		// mId allows you to update the notification later on.
 		mNotificationManager.notify(NOTIF_ID, noti);
-	}
-	
-	private void sleep(long millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

@@ -51,8 +51,6 @@ public class ImageDownloadService extends JobIntentService {
         String imageUrl = intent.getStringExtra("url");
         // Download image
         Bitmap bitmap = downloadImage(imageUrl);
-        // Sleep to waste time
-        sleep(2000);
         // Create completion notification
         createNotification(bitmap);
     }
