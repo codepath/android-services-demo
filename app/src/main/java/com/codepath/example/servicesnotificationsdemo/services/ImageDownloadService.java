@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.JobIntentService;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.RemoteInput;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,6 +45,8 @@ public class ImageDownloadService extends JobIntentService {
     // Download the image and create notification
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
+        Log.d("DEBUG", "ImageDownloadService triggered");
+
         // Extract additional values from the bundle
         String imageUrl = intent.getStringExtra("url");
         // Download image

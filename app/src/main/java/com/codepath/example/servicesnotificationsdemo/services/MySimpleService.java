@@ -12,6 +12,7 @@ import android.os.ResultReceiver;
 import android.support.annotation.NonNull;
 import android.support.v4.app.JobIntentService;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.codepath.example.servicesnotificationsdemo.DemoApplication;
 import com.codepath.example.servicesnotificationsdemo.R;
@@ -29,11 +30,13 @@ public class MySimpleService extends JobIntentService {
 	// This describes what will happen when service is triggered
 	@Override
 	protected void onHandleWork(@NonNull Intent intent) {
+		Log.d("DEBUG", "MySimpleService triggered");
 		timestamp =  System.currentTimeMillis();
 	    // Extract additional values from the bundle
 	    String val = intent.getStringExtra("foo");
 		// Extract the receiver passed into the service
 	    ResultReceiver rec = intent.getParcelableExtra("receiver");
+
 	    // Sleep a bit first
 	    sleep(3000);
 	    // Send result to activity
