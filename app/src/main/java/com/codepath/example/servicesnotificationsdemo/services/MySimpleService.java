@@ -9,29 +9,34 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
+import android.support.annotation.NonNull;
+import android.support.v4.app.JobIntentService;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.codepath.example.servicesnotificationsdemo.DemoApplication;
 import com.codepath.example.servicesnotificationsdemo.R;
 import com.codepath.example.servicesnotificationsdemo.activities.MainActivity;
 
-public class MySimpleService extends IntentService {
+public class MySimpleService extends JobIntentService {
+	public static final int JOB_ID = 100;
 	public static final int NOTIF_ID = 56;
 	long timestamp;
-	
-	// Must create a default constructor
-	public MySimpleService() {
-		super("simple-service");
+
+	public static void enqueueWork(Context context, Intent work) {
+		enqueueWork(context, MySimpleService.class, JOB_ID, work);
 	}
-   
+
 	// This describes what will happen when service is triggered
 	@Override
-	protected void onHandleIntent(Intent intent) {
+	protected void onHandleWork(@NonNull Intent intent) {
+		Log.d("DEBUG", "MySimpleService triggered");
 		timestamp =  System.currentTimeMillis();
 	    // Extract additional values from the bundle
 	    String val = intent.getStringExtra("foo");
 		// Extract the receiver passed into the service
 	    ResultReceiver rec = intent.getParcelableExtra("receiver");
+
 	    // Sleep a bit first
 	    sleep(3000);
 	    // Send result to activity

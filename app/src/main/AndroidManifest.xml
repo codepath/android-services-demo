@@ -32,14 +32,15 @@
 
         <service
             android:name=".services.MySimpleService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
         <service
             android:name=".services.ImageDownloadService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="true" />
 
         <receiver
-            android:name=".receivers.MyAlarmReceiver"
-            android:process=":remote"></receiver>
+            android:name=".receivers.MyAlarmReceiver"></receiver>
 
         <service
             android:name=".services.DirectReplyIntent"></service>
